@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+    # add authentication so no one can just delete, create or add comments or posts
+    http_basic_authenticate_with name: "Ashley", password: "12345", except: [:index, :show]
     def index
         @post = Post.all
     end
@@ -39,7 +41,7 @@ class PostsController < ApplicationController
     def destroy
         @post = Post.find(params[:id])
         @post.destroy
-        
+
         redirect_to posts_path
     end
 
